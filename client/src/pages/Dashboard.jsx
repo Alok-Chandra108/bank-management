@@ -8,11 +8,11 @@ import TransactionHistory from './TransactionHistory'; // Ensure this path is co
 
 // Import Heroicons
 import {
-  ArrowRightOnRectangleIcon, // For Logout icon (previously an SVG)
-  WalletIcon,                 // For Account Balance card title (already used in TransactionHistory)
-  CreditCardIcon,             // For Deposit / Withdraw card title (replacing SVG)
-  ArrowsRightLeftIcon,        // For Transfer Funds card title (replacing SVG, already used in TransactionHistory)
-} from '@heroicons/react/24/outline'; // Using outline style for consistency
+  ArrowRightOnRectangleIcon,
+  WalletIcon,
+  CreditCardIcon,
+  ArrowsRightLeftIcon,
+} from '@heroicons/react/24/outline';
 
 const Dashboard = () => {
   const { user, logout } = useAuth();
@@ -40,7 +40,7 @@ const Dashboard = () => {
     };
 
     fetchAccount();
-  }, [user, logout]); // Added logout to dependency array to prevent lint warning
+  }, [user, logout]);
 
   // Function to trigger a subtle animation on the balance
   const triggerBalanceAnimation = () => {
@@ -112,70 +112,67 @@ const Dashboard = () => {
 
   if (!user) {
     // Basic loading/redirect state if user is not yet loaded
-    return <div className="min-h-screen bg-emerald-950 text-white flex items-center justify-center text-xl">Loading dashboard...</div>;
+    return <div className="min-h-screen bg-purple-950 text-white flex items-center justify-center text-xl">Loading dashboard...</div>;
   }
 
   return (
-    <div className="min-h-screen bg-emerald-950 font-sans text-white flex flex-col items-center p-4 sm:p-6 lg:p-8"> {/* Changed text-gray-100 to text-white for general text */}
+    <div className="min-h-screen bg-purple-950 font-sans text-white flex flex-col items-center p-4 sm:p-6 lg:p-8">
 
       {/* Header and User Info */}
-      <header className="w-full max-w-7xl flex flex-col sm:flex-row justify-between items-center bg-emerald-900 p-4 rounded-xl shadow-lg mb-6 sm:mb-8 border border-emerald-800">
+      <header className="w-full max-w-7xl flex flex-col sm:flex-row justify-between items-center bg-purple-900 p-4 rounded-xl shadow-lg mb-6 sm:mb-8 border border-purple-800">
         <div className="flex items-center mb-3 sm:mb-0">
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-amber-300 mr-4">C.B.I.</h1>
-          <div className="text-sm sm:text-base text-gray-200"> {/* Adjusted text-gray-300 to text-gray-200 for better visibility */}
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-300 mr-4">C.B.I.</h1> {/* Changed text-amber-300 to text-gray-300 */}
+          <div className="text-sm sm:text-base text-purple-200"> {/* Changed text-gray-200 to text-purple-200 */}
             Welcome, <strong className="text-white">{user?.name}</strong> (<span className="text-yellow-100">{user?.role}</span>)
           </div>
         </div>
 
         {/* Navigation/Logout Links */}
-        <div className="flex items-center space-x-4"> {/* Grouping links */}
-          <Link to="/transactions" className="text-white hover:text-amber-300 transition duration-300 ease-in-out font-medium"> {/* Adjusted hover color */}
-            All Transactions
-          </Link>
+        <div className="flex items-center space-x-4">
           <Link
             to="/login"
             onClick={logout}
-            
-            className="flex items-center px-4 py-2 bg-red-700 hover:bg-red-800 rounded-lg text-sm font-semibold text-white transition duration-300 ease-in-out shadow-md"
+
+            className="flex items-center px-4 py-2 bg-red-600 hover:bg-red-800 rounded-lg text-sm font-semibold text-white transition duration-300 ease-in-out shadow-md" 
           >
-            <ArrowRightOnRectangleIcon className="h-4 w-4 mr-2 text-white" /> {/* Replaced SVG */}
+            <ArrowRightOnRectangleIcon className="h-4 w-4 mr-2 text-white" />
             Logout
           </Link>
         </div>
       </header>
 
-      <main className="w-full max-w-7xl"> {/* Removed grid here to allow full control of sections */}
+      <main className="w-full max-w-7xl">
 
         {/* Section for the three main financial cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8"> {/* Added mb-8 for space below cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
 
-          {/* Account Summary Card - Adjusted for better visibility */}
+          {/* Account Summary Card */}
           {account ? (
-            <div className="md:col-span-2 lg:col-span-1 bg-emerald-900 p-6 rounded-xl shadow-lg border border-emerald-800 flex flex-col justify-between h-full">
-              <h2 className="text-xl font-bold mb-4 text-amber-300 flex items-center">
-                <WalletIcon className="h-6 w-6 mr-2 text-amber-300" /> {/* Replaced SVG */}
+            <div className="md:col-span-2 lg:col-span-1 bg-purple-900 p-6 rounded-xl shadow-lg border border-purple-800 flex flex-col justify-between h-full"> {/* Changed bg-emerald-900 to bg-purple-900, border-emerald-800 to border-purple-800 */}
+              <h2 className="text-xl font-bold mb-4 text-gray-300 flex items-center"> {/* Changed text-amber-300 to text-gray-300 */}
+                <WalletIcon className="h-6 w-6 mr-2 text-gray-300" /> {/* Changed text-amber-300 to text-gray-300 */}
                 Account Balance
               </h2>
               <div className="text-center my-4">
-                <p className="text-gray-300 text-sm">Account Number:</p> {/* Adjusted text-gray-400 to text-gray-300 */}
+                <p className="text-purple-300 text-sm">Account Number:</p> {/* Changed text-gray-300 to text-purple-300 */}
                 <p className="text-xl font-mono text-white tracking-wide mb-4">{account.accountNumber}</p>
-                <p className="text-gray-300 text-base">Current Balance:</p> {/* Adjusted text-gray-400 to text-gray-300 */}
-                <p className={`font-bold text-5xl text-lime-300 transition-all duration-500 ease-out ${isAnimating ? 'scale-105 opacity-100' : 'scale-100 opacity-90'}`}>
+                <p className="text-purple-300 text-base">Current Balance:</p> {/* Changed text-gray-300 to text-purple-300 */}
+                <p className={`font-bold text-5xl text-emerald-300 transition-all duration-500 ease-out ${isAnimating ? 'scale-105 opacity-100' : 'scale-100 opacity-90'}`}> {/* Changed text-lime-300 to text-emerald-300 */}
                   ₹{account.balance.toFixed(2)}
                 </p>
               </div>
-              <p className="text-gray-400 text-xs text-center mt-auto">Updated in real-time</p> {/* Adjusted text-gray-500 to text-gray-400 */}
+              <p className="text-purple-400 text-xs text-center mt-auto">Updated in real-time</p> {/* Changed text-gray-400 to text-purple-400 */}
             </div>
           ) : (
-            <div className="md:col-span-2 lg:col-span-1 bg-emerald-900 p-6 rounded-xl shadow-lg border border-emerald-800 flex items-center justify-center h-full min-h-[150px]">
-              <p className="text-white text-base">Loading account data...</p> {/* Changed to text-white for visibility */}
+            <div className="md:col-span-2 lg:col-span-1 bg-purple-900 p-6 rounded-xl shadow-lg border border-purple-800 flex items-center justify-center h-full min-h-[150px]"> {/* Changed bg-emerald-900 to bg-purple-900, border-emerald-800 to border-purple-800 */}
+              <p className="text-white text-base">Loading account data...</p>
             </div>
           )}
 
           {/* Deposit / Withdraw Form */}
-          <div className="md:col-span-1 lg:col-span-1 bg-emerald-900 p-6 rounded-xl shadow-lg border border-emerald-800 h-full">
+          <div className="md:col-span-1 lg:col-span-1 bg-purple-900 p-6 rounded-xl shadow-lg border border-purple-800 h-full"> {/* Changed bg-emerald-900 to bg-purple-900, border-emerald-800 to border-purple-800 */}
             <h2 className="text-xl font-bold mb-4 text-white flex items-center">
-              <CreditCardIcon className="h-6 w-6 mr-2 text-gray-300" /> {/* Replaced SVG */}
+              <CreditCardIcon className="h-6 w-6 mr-2 text-gray-300" /> {/* Keeping gray icon for neutrality */}
               Deposit / Withdraw
             </h2>
             <form onSubmit={handleTransaction} className="space-y-4">
@@ -183,18 +180,18 @@ const Dashboard = () => {
                 type="number"
                 name="amount"
                 placeholder="Amount"
-                className="w-full px-4 py-2 rounded-md bg-emerald-800 text-white placeholder:text-gray-400 border border-emerald-700 focus:outline-none focus:ring-2 focus:ring-amber-300 text-lg
-                           [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [-moz-appearance:textfield]"
+                className="w-full px-4 py-2 rounded-md bg-purple-800 text-white placeholder:text-purple-400 border border-purple-700 focus:outline-none focus:ring-2 focus:ring-gray-300 text-lg
+                           [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [-moz-appearance:textfield]" 
                 required
               />
-              <div className="flex bg-emerald-800 rounded-lg p-1 border border-emerald-700 overflow-hidden">
+              <div className="flex bg-purple-800 rounded-lg p-1 border border-purple-700 overflow-hidden"> {/* Changed bg-emerald-800 to bg-purple-800, border-emerald-700 to border-purple-700 */}
                 <button
                   type="button"
                   onClick={() => setTransactionType('deposit')}
                   className={`flex-1 px-3 py-2 rounded-lg font-semibold text-sm transition-all duration-300 ${
                     transactionType === 'deposit'
-                      ? 'bg-emerald-600 text-white shadow-inner-lg'
-                      : 'text-gray-300 hover:bg-emerald-700' // Adjusted text-gray-400 to text-gray-300
+                      ? 'bg-emerald-600 text-white shadow-inner-lg' // Emerald green for deposit
+                      : 'text-purple-300 hover:bg-purple-700' // Changed text-gray-300 to text-purple-300, hover:bg-emerald-700 to hover:bg-purple-700
                   }`}
                 >
                   Deposit
@@ -204,8 +201,8 @@ const Dashboard = () => {
                   onClick={() => setTransactionType('withdraw')}
                   className={`flex-1 px-3 py-2 rounded-lg font-semibold text-sm transition-all duration-300 ${
                     transactionType === 'withdraw'
-                      ? 'bg-red-700 text-white shadow-inner-lg'
-                      : 'text-gray-300 hover:bg-emerald-700' // Adjusted text-gray-400 to text-gray-300
+                      ? 'bg-red-700 text-white shadow-inner-lg' // Changed bg-red-700 to bg-fuchsia-700
+                      : 'text-purple-300 hover:bg-purple-700' // Changed text-gray-300 to text-purple-300, hover:bg-emerald-700 to hover:bg-purple-700
                   }`}
                 >
                   Withdraw
@@ -213,7 +210,7 @@ const Dashboard = () => {
               </div>
               <button
                 type="submit"
-                className="w-full px-4 py-2.5 bg-amber-600 hover:bg-amber-700 rounded-lg font-bold text-emerald-950 transition duration-300 shadow-md"
+                className="w-full px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 rounded-lg font-bold text-white transition duration-300 shadow-md" 
               >
                 Confirm Transaction
               </button>
@@ -221,9 +218,9 @@ const Dashboard = () => {
           </div>
 
           {/* Transfer Money */}
-          <div className="md:col-span-1 lg:col-span-1 bg-emerald-900 p-6 rounded-xl shadow-lg border border-emerald-800 h-full">
+          <div className="md:col-span-1 lg:col-span-1 bg-purple-900 p-6 rounded-xl shadow-lg border border-purple-800 h-full"> {/* Changed bg-emerald-900 to bg-purple-900, border-emerald-800 to border-purple-800 */}
             <h2 className="text-xl font-bold mb-4 text-white flex items-center">
-              <ArrowsRightLeftIcon className="h-6 w-6 mr-2 text-gray-300" /> {/* Replaced SVG */}
+              <ArrowsRightLeftIcon className="h-6 w-6 mr-2 text-gray-300" /> {/* Keeping gray icon for neutrality */}
               Transfer Funds
             </h2>
             <form onSubmit={handleTransfer} className="space-y-4">
@@ -231,20 +228,20 @@ const Dashboard = () => {
                 type="text"
                 name="accountNumber"
                 placeholder="Receiver Account Number"
-                className="w-full px-4 py-2 rounded-md bg-emerald-800 text-white placeholder:text-gray-400 border border-emerald-700 focus:outline-none focus:ring-2 focus:ring-amber-300 text-lg"
+                className="w-full px-4 py-2 rounded-md bg-purple-800 text-white placeholder:text-purple-400 border border-purple-700 focus:outline-none focus:ring-2 focus:ring-gray-300 text-lg" 
                 required
               />
               <input
                 type="number"
                 name="amount"
                 placeholder="Amount to Transfer"
-                className="w-full px-4 py-2 rounded-md bg-emerald-800 text-white placeholder:text-gray-400 border border-emerald-700 focus:outline-none focus:ring-2 focus:ring-amber-300 text-lg
+                className="w-full px-4 py-2 rounded-md bg-purple-800 text-white placeholder:text-purple-400 border border-purple-700 focus:outline-none focus:ring-2 focus:ring-gray-300 text-lg
                            [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [-moz-appearance:textfield]"
                 required
               />
               <button
                 type="submit"
-                className="w-full px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 rounded-lg font-bold text-white transition duration-300 shadow-md"
+                className="w-full px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 rounded-lg font-bold text-white transition duration-300 shadow-md" 
               >
                 Send Money
               </button>
