@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../store/useAuth';
 
 
 const Login = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -19,11 +20,13 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', formData);
+      const res = await axios.post(`${import.meta.env.VITE_API}/api/auth/login`, formData, {
+        withCredentials: true,
+      });
       toast.success(res.data.message);
       useAuth.getState().login(res.data.data);
       setTimeout(() => {
-        window.location.href = '/dashboard';
+        navigate('/dashboard');
       }, 1000);
     } catch (err) {
       const message = err.response?.data?.message || 'Login failed';

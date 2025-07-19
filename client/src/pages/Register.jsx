@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../store/useAuth';
 
-
 const Register = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -21,12 +22,12 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/register', formData);
+      const res = await axios.post(`${import.meta.env.VITE_API}/api/auth/register`, formData);
       toast.success(res.data.message);
       useAuth.getState().login(res.data.data);
 
       setTimeout(() => {
-        window.location.href = '/dashboard';
+        navigate('/dashboard');
       }, 1000);
 
     } catch (err) {
@@ -39,7 +40,6 @@ const Register = () => {
     <div className="min-h-screen bg-emerald-950 flex items-center justify-center px-4 py-8">
       <div className="bg-emerald-900 border border-emerald-800 shadow-2xl rounded-2xl p-8 sm:p-10 w-full max-w-md">
         
-        {/* Logo/Title */}
         <div className="text-center mb-8">
           <h1 className="text-4xl font-extrabold text-amber-300 mb-2">C.B.I.</h1>
           <h2 className="text-2xl font-semibold text-white">Create Account</h2>
@@ -73,10 +73,6 @@ const Register = () => {
             className="w-full px-5 py-3 rounded-xl bg-emerald-800 text-white placeholder:text-emerald-300 border border-emerald-700 focus:outline-none focus:ring-2 focus:ring-amber-400 transition duration-200"
             required
           />
-
-          {/* Role selection - assuming 'customer' is default, no visual change unless specified */}
-          {/* If you want to make the role selectable, it would be added here */}
-          {/* For now, 'role: 'customer'' remains in state and is sent with formData */}
 
           <button
             type="submit"

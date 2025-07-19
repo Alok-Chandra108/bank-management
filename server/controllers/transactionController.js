@@ -21,7 +21,6 @@ export const deposit = async (req, res) => {
     account.balance += amount;
     await account.save();
 
-    // ✅ Add Transaction Record
     await Transaction.create({
       to: userId, // 'to' is appropriate for deposit as money comes to this user
       amount,

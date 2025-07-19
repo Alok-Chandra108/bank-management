@@ -21,11 +21,11 @@ const TransactionRow = ({ txn, isHeader = false }) => {
   const getStatusColor = (type) => {
     switch (type) {
       case 'deposit':
-        return 'text-emerald-300'; // Changed from text-lime-300 to text-emerald-300
+        return 'text-emerald-300';
       case 'withdraw':
-        return 'text-fuchsia-400'; // Changed from text-red-400 to text-fuchsia-400
+        return 'text-fuchsia-400';
       case 'transfer':
-        return 'text-gray-300'; // Changed from text-amber-300 to text-gray-300
+        return 'text-gray-300';
       default:
         return 'text-white';
     }
@@ -36,19 +36,19 @@ const TransactionRow = ({ txn, isHeader = false }) => {
       case 'deposit':
         return (
           <div className="flex items-center">
-            <ArrowUpIcon className="h-5 w-5 mr-1 text-emerald-400" /> Deposit {/* Changed text-lime-400 to text-emerald-400 */}
+            <ArrowUpIcon className="h-5 w-5 mr-1 text-emerald-400" /> Deposit
           </div>
         );
       case 'withdraw':
         return (
           <div className="flex items-center">
-            <ArrowDownIcon className="h-5 w-5 mr-1 text-fuchsia-400" /> Withdraw {/* Changed text-red-400 to text-fuchsia-400 */}
+            <ArrowDownIcon className="h-5 w-5 mr-1 text-fuchsia-400" /> Withdraw
           </div>
         );
       case 'transfer':
         return (
           <div className="flex items-center">
-            <ArrowsRightLeftIcon className="h-5 w-5 mr-1 text-gray-400" /> Transfer {/* Changed text-amber-400 to text-gray-400 */}
+            <ArrowsRightLeftIcon className="h-5 w-5 mr-1 text-gray-400" /> Transfer
           </div>
         );
       default:
@@ -58,7 +58,7 @@ const TransactionRow = ({ txn, isHeader = false }) => {
 
   if (isHeader) {
     return (
-      <div className="grid grid-cols-4 gap-4 py-3 px-4 font-semibold text-sm text-purple-300 border-b border-purple-700 sticky top-0 bg-purple-900 z-10"> {/* Changed text-gray-300 to text-purple-300, border-emerald-700 to border-purple-700, bg-emerald-900 to bg-purple-900 */}
+      <div className="grid grid-cols-4 gap-4 py-3 px-4 font-semibold text-sm text-purple-300 border-b border-purple-700 sticky top-0 bg-purple-900 z-10">
         <div className="col-span-1">Type</div>
         <div className="col-span-1">Details</div>
         <div className="col-span-1 text-right">Amount</div>
@@ -68,9 +68,9 @@ const TransactionRow = ({ txn, isHeader = false }) => {
   }
 
   return (
-    <div className={`grid grid-cols-4 gap-4 py-3 px-4 items-center ${getStatusColor(txn.type)} text-sm border-b border-purple-800 last:border-b-0`}> {/* Changed border-emerald-800 to border-purple-800 */}
+    <div className={`grid grid-cols-4 gap-4 py-3 px-4 items-center ${getStatusColor(txn.type)} text-sm border-b border-purple-800 last:border-b-0`}>
       <div className="col-span-1 font-medium text-white">{getTypeDisplay(txn.type)}</div>
-      <div className="col-span-1 text-purple-300"> {/* Changed text-gray-300 to text-purple-300 */}
+      <div className="col-span-1 text-purple-300">
         {txn.type === 'transfer' && txn.to && txn.to.name ? (
           <span className="font-medium text-white">To: {txn.to.name}</span>
         ) : txn.type === 'transfer' && txn.from && txn.from.name ? (
@@ -78,7 +78,7 @@ const TransactionRow = ({ txn, isHeader = false }) => {
         ) : (
           <span className="italic">Direct {txn.type}</span>
         )}
-        {txn.description && <div className="text-xs text-purple-400 italic mt-1 truncate">{txn.description}</div>} {/* Changed text-gray-400 to text-purple-400 */}
+        {txn.description && <div className="text-xs text-purple-400 italic mt-1 truncate">{txn.description}</div>}
       </div>
       <div className={`col-span-1 text-right font-bold text-base ${getStatusColor(txn.type)}`}>
         {txn.type === 'deposit' ? '+' : '-'}₹{txn.amount.toFixed(2)}
@@ -187,23 +187,23 @@ const TransactionHistoryModal = ({ allTransactions, onClose }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center p-4 z-50">
       <div className="bg-purple-900 rounded-2xl shadow-2xl p-6 w-full max-w-6xl max-h-[90vh] flex flex-col border border-purple-700 relative
-                      scrollbar-thin scrollbar-thumb-purple-700 scrollbar-track-purple-900 hover:scrollbar-thumb-purple-600"> {/* Changed bg-emerald-900 to bg-purple-900, border-emerald-700 to border-purple-700, scrollbar-thumb-emerald-700 to scrollbar-thumb-purple-700, scrollbar-track-emerald-900 to scrollbar-track-purple-900, hover:scrollbar-thumb-emerald-600 to hover:scrollbar-thumb-purple-600 */}
-        <h2 className="text-2xl font-bold mb-6 text-gray-300 flex items-center"> {/* Changed text-amber-300 to text-gray-300 */}
-          <WalletIcon className="h-7 w-7 mr-3 text-gray-300" /> {/* Changed text-amber-300 to text-gray-300 */}
+                      scrollbar-thin scrollbar-thumb-purple-700 scrollbar-track-purple-900 hover:scrollbar-thumb-purple-600">
+        <h2 className="text-2xl font-bold mb-6 text-gray-300 flex items-center">
+          <WalletIcon className="h-7 w-7 mr-3 text-gray-300" />
           Full Transaction History
         </h2>
 
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-purple-400 hover:text-white transition duration-200" 
+          className="absolute top-4 right-4 text-purple-400 hover:text-white transition duration-200"
         >
           <XMarkIcon className="h-6 w-6" />
         </button>
 
         {/* Filters Section Header and Toggle */}
-        <div className="mb-4 p-4 bg-purple-800 rounded-lg border border-purple-700 flex-shrink-0"> {/* Changed bg-emerald-800 to bg-purple-800, border-emerald-700 to border-purple-700 */}
+        <div className="mb-4 p-4 bg-purple-800 rounded-lg border border-purple-700 flex-shrink-0">
           <div className="flex justify-between items-center cursor-pointer" onClick={() => setIsFilterSectionOpen(!isFilterSectionOpen)}>
-            <h3 className="text-lg font-bold text-purple-200 flex items-center"> {/* Changed text-amber-200 to text-purple-200 */}
+            <h3 className="text-lg font-bold text-purple-200 flex items-center">
               <FunnelIcon className="h-5 w-5 mr-2" /> Filters
             </h3>
             <div className="flex items-center text-white hover:text-gray-200">
@@ -218,13 +218,13 @@ const TransactionHistoryModal = ({ allTransactions, onClose }) => {
 
           {/* Filter Controls (Conditionally Rendered) */}
           {isFilterSectionOpen && (
-            <div className="mt-4 pt-4 border-t border-purple-700 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"> {/* Changed border-emerald-700 to border-purple-700 */}
+            <div className="mt-4 pt-4 border-t border-purple-700 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               {/* Filter by Type */}
               <div>
-                <label htmlFor="filterType" className="block text-sm font-medium text-purple-300 mb-1">Transaction Type</label> {/* Changed text-gray-300 to text-purple-300 */}
+                <label htmlFor="filterType" className="block text-sm font-medium text-purple-300 mb-1">Transaction Type</label>
                 <select
                   id="filterType"
-                  className="w-full px-3 py-2 rounded-md bg-purple-700 text-white border border-purple-600 focus:outline-none focus:ring-2 focus:ring-gray-300" 
+                  className="w-full px-3 py-2 rounded-md bg-purple-700 text-white border border-purple-600 focus:outline-none focus:ring-2 focus:ring-gray-300"
                   value={filterType}
                   onChange={(e) => setFilterType(e.target.value)}
                 >
@@ -237,11 +237,11 @@ const TransactionHistoryModal = ({ allTransactions, onClose }) => {
 
               {/* Filter by Start Date */}
               <div>
-                <label htmlFor="startDate" className="block text-sm font-medium text-purple-300 mb-1">From Date</label> {/* Changed text-gray-300 to text-purple-300 */}
+                <label htmlFor="startDate" className="block text-sm font-medium text-purple-300 mb-1">From Date</label>
                 <input
                   type="date"
                   id="startDate"
-                  className="w-full px-3 py-2 rounded-md bg-purple-700 text-white border border-purple-600 focus:outline-none focus:ring-2 focus:ring-gray-300" 
+                  className="w-full px-3 py-2 rounded-md bg-purple-700 text-white border border-purple-600 focus:outline-none focus:ring-2 focus:ring-gray-300"
                   value={startDate}
                   onChange={(e) => setStartDate(e.target.value)}
                 />
@@ -249,11 +249,11 @@ const TransactionHistoryModal = ({ allTransactions, onClose }) => {
 
               {/* Filter by End Date */}
               <div>
-                <label htmlFor="endDate" className="block text-sm font-medium text-purple-300 mb-1">To Date</label> {/* Changed text-gray-300 to text-purple-300 */}
+                <label htmlFor="endDate" className="block text-sm font-medium text-purple-300 mb-1">To Date</label>
                 <input
                   type="date"
                   id="endDate"
-                  className="w-full px-3 py-2 rounded-md bg-purple-700 text-white border border-purple-600 focus:outline-none focus:ring-2 focus:ring-gray-300" 
+                  className="w-full px-3 py-2 rounded-md bg-purple-700 text-white border border-purple-600 focus:outline-none focus:ring-2 focus:ring-gray-300"
                   value={endDate}
                   onChange={(e) => setEndDate(e.target.value)}
                 />
@@ -261,35 +261,35 @@ const TransactionHistoryModal = ({ allTransactions, onClose }) => {
 
               {/* Quick Date Filters (Badges with distinct colors and explicit text-white) */}
               <div className="lg:col-span-1">
-                <label className="block text-sm font-medium text-purple-300 mb-1">Quick Dates</label> {/* Changed text-gray-300 to text-purple-300 */}
+                <label className="block text-sm font-medium text-purple-300 mb-1">Quick Dates</label>
                 <div className="flex flex-wrap gap-2">
                   <button
                     onClick={() => applyQuickDateFilter('today')}
-                    className="px-3 py-1.5 text-xs bg-blue-700 hover:bg-blue-800 rounded-full text-white transition duration-200 border border-blue-600" // New color
+                    className="px-3 py-1.5 text-xs bg-blue-700 hover:bg-blue-800 rounded-full text-white transition duration-200 border border-blue-600"
                   >Today</button>
                   <button
                     onClick={() => applyQuickDateFilter('last7days')}
-                    className="px-3 py-1.5 text-xs bg-indigo-700 hover:bg-indigo-800 rounded-full text-white transition duration-200 border border-indigo-600" // New color
+                    className="px-3 py-1.5 text-xs bg-indigo-700 hover:bg-indigo-800 rounded-full text-white transition duration-200 border border-indigo-600"
                   >Last 7 Days</button>
                   <button
                     onClick={() => applyQuickDateFilter('last30days')}
-                    className="px-3 py-1.5 text-xs bg-teal-700 hover:bg-teal-800 rounded-full text-white transition duration-200 border border-teal-600" // New color
+                    className="px-3 py-1.5 text-xs bg-teal-700 hover:bg-teal-800 rounded-full text-white transition duration-200 border border-teal-600"
                   >Last 30 Days</button>
                   <button
                     onClick={() => applyQuickDateFilter('thismonth')}
-                    className="px-3 py-1.5 text-xs bg-lime-700 hover:bg-lime-800 rounded-full text-white transition duration-200 border border-lime-600" // New color
+                    className="px-3 py-1.5 text-xs bg-lime-700 hover:bg-lime-800 rounded-full text-white transition duration-200 border border-lime-600"
                   >This Month</button>
                   <button
                     onClick={() => applyQuickDateFilter('lastmonth')}
-                    className="px-3 py-1.5 text-xs bg-yellow-700 hover:bg-yellow-800 rounded-full text-white transition duration-200 border border-yellow-600" // New color
+                    className="px-3 py-1.5 text-xs bg-yellow-700 hover:bg-yellow-800 rounded-full text-white transition duration-200 border border-yellow-600"
                   >Last Month</button>
                   <button
                     onClick={() => applyQuickDateFilter('thisyear')}
-                    className="px-3 py-1.5 text-xs bg-orange-700 hover:bg-orange-800 rounded-full text-white transition duration-200 border border-orange-600" // New color
+                    className="px-3 py-1.5 text-xs bg-orange-700 hover:bg-orange-800 rounded-full text-white transition duration-200 border border-orange-600"
                   >This Year</button>
                   <button
                     onClick={() => applyQuickDateFilter('all')}
-                    className="px-3 py-1.5 text-xs bg-gray-700 hover:bg-gray-600 rounded-full text-white transition duration-200 border border-gray-600" // Changed border-gray-500 to border-gray-600
+                    className="px-3 py-1.5 text-xs bg-gray-700 hover:bg-gray-600 rounded-full text-white transition duration-200 border border-gray-600"
                   >All Dates</button>
                 </div>
               </div>
@@ -311,7 +311,7 @@ const TransactionHistoryModal = ({ allTransactions, onClose }) => {
           <p className="text-white text-center py-4 flex-grow flex items-center justify-center">No transactions found matching your filters.</p>
         ) : (
           <div className="flex-grow overflow-y-auto pr-2
-                          scrollbar-thin scrollbar-thumb-purple-700 scrollbar-track-purple-900 hover:scrollbar-thumb-purple-600"> {/* Changed scrollbar-thumb-emerald-700 to scrollbar-thumb-purple-700, scrollbar-track-emerald-900 to scrollbar-track-purple-900, hover:scrollbar-thumb-emerald-600 to hover:scrollbar-thumb-purple-600 */}
+                          scrollbar-thin scrollbar-thumb-purple-700 scrollbar-track-purple-900 hover:scrollbar-thumb-purple-600">
             <TransactionRow isHeader />
             {filteredTransactions.map((txn) => (
               <TransactionRow key={txn._id} txn={txn} />
@@ -338,7 +338,7 @@ const TransactionHistory = () => {
       }
 
       try {
-        const res = await axios.get('http://localhost:5000/api/transactions/history', {
+        const res = await axios.get(`${import.meta.env.VITE_API}/api/transactions/history`, {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
@@ -356,9 +356,9 @@ const TransactionHistory = () => {
   const latestFiveTransactions = transactions.slice(0, 5);
 
   return (
-    <div className="p-6 bg-purple-900 shadow-2xl rounded-2xl border border-purple-800 text-white flex flex-col h-full"> {/* Changed bg-emerald-900 to bg-purple-900, border-emerald-800 to border-purple-800 */}
-      <h2 className="text-2xl font-bold mb-6 text-gray-300 flex items-center"> {/* Changed text-amber-300 to text-gray-300 */}
-        <WalletIcon className="h-7 w-7 mr-3 text-gray-300" /> {/* Changed text-amber-300 to text-gray-300 */}
+    <div className="p-6 bg-purple-900 shadow-2xl rounded-2xl border border-purple-800 text-white flex flex-col h-full">
+      <h2 className="text-2xl font-bold mb-6 text-gray-300 flex items-center">
+        <WalletIcon className="h-7 w-7 mr-3 text-gray-300" />
         Latest Transactions
       </h2>
       {transactions.length === 0 ? (
@@ -366,7 +366,7 @@ const TransactionHistory = () => {
       ) : (
         <>
           <div className="flex-grow overflow-y-auto pr-2
-                          scrollbar-thin scrollbar-thumb-purple-700 scrollbar-track-purple-900 hover:scrollbar-thumb-purple-600"> {/* Changed scrollbar-thumb-emerald-700 to scrollbar-thumb-purple-700, scrollbar-track-emerald-900 to scrollbar-track-purple-900, hover:scrollbar-thumb-emerald-600 to hover:scrollbar-thumb-purple-600 */}
+                          scrollbar-thin scrollbar-thumb-purple-700 scrollbar-track-purple-900 hover:scrollbar-thumb-purple-600">
             <TransactionRow isHeader />
             {latestFiveTransactions.map((txn) => (
               <TransactionRow key={txn._id} txn={txn} />
@@ -376,7 +376,7 @@ const TransactionHistory = () => {
             <div className="text-center mt-6">
               <button
                 onClick={() => setShowFullHistory(true)}
-                className="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 rounded-lg font-bold text-white transition duration-300 shadow-md flex items-center justify-center mx-auto" 
+                className="px-6 py-3  bg-emerald-600 hover:bg-emerald-700 rounded-lg font-bold text-white transition duration-300 shadow-md flex items-center justify-center mx-auto"
               >
                 View All Transactions
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 ml-2">
