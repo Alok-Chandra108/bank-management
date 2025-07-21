@@ -8,25 +8,19 @@ import transactionRoutes from './routes/transactionRoutes.js';
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
 
-import path from 'path';
-import { fileURLToPath } from 'url';
+dotenv.config(); // Load environment variables from .env file
 
-// Get __dirname equivalent in ES Modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-dotenv.config();
 const app = express();
 
 // Middleware
 app.use(cors({
-  origin: process.env.CLIENT_URL,
+  origin: process.env.CLIENT_URL, // This should be the URL of your deployed frontend on Render
   credentials: true
 }));
 
-app.use(express.json());
-app.use(cookieParser());
-app.use(compression()); // optional but improves performance
+app.use(express.json()); // Parses incoming JSON requests
+app.use(cookieParser()); // Parses cookies from incoming requests
+app.use(compression()); // Compresses response bodies for improved performance
 
 // Connect to DB
 connectDB();
@@ -36,21 +30,18 @@ app.use('/api/auth', authRoutes);
 app.use('/api/bank', bankRoutes);
 app.use('/api/transactions', transactionRoutes);
 
-// ---------- Serve frontend in production ----------
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '/client/dist')));
+// Basic Route for testing deployment (Optional)
+app.get('/', (req, res) => {
+  res.send('Backend is running!');
+});
 
-  // Handles all client-side routes
-  app.get('/*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
-  });
-} else {
-  // Health check route in dev
-  app.get('/', (req, res) => {
-    res.send('API is running...');
-  });
-}
+// Error Handling Middleware (Recommended for production)
+// This should be the last middleware added
+app.use((err, req, res, next) => {
+  console.error(err.stack); // Log the error stack for debugging
+  res.status(500).send('Something broke!'); // Send a generic error response
+});
 
 // Start server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000; // Use port provided by Render or default to 5000
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
