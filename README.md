@@ -22,7 +22,7 @@ A full-stack **MERN** application that simulates core banking features — inclu
 | Frontend       | Backend        | Database | Tools & Packages                             |
 |----------------|----------------|----------|----------------------------------------------|
 | React (Vite)   | Node.js        | MongoDB  | Axios, JWT, Express, Mongoose, bcrypt, dotenv |
-| Tailwind CSS   | Express.js     |          | ShadCN/UI, React Router, Vite                |
+| Tailwind CSS   | Express.js     |          | React Router, Vite                            |
 
 ---
 
