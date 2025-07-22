@@ -3,7 +3,8 @@ import useAuth from '../store/useAuth';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
-import TransactionHistory from './TransactionHistory'; // Ensure this path is correct
+import TransactionHistory from './TransactionHistory';
+import CardRequest from '../components/CardRequest';
 
 // Import Heroicons
 import {
@@ -17,7 +18,7 @@ const Dashboard = () => {
   const { user, logout } = useAuth();
   const [account, setAccount] = useState(null);
   const [transactionType, setTransactionType] = useState('deposit');
-  const [isAnimating, setIsAnimating] = useState(false); // For subtle balance animation
+  const [isAnimating, setIsAnimating] = useState(false);
 
   const API = import.meta.env.VITE_API;
 
@@ -108,6 +109,11 @@ const Dashboard = () => {
       toast.error(err.response?.data?.message || 'Transfer failed');
     }
   };
+
+  // REMOVED: handleCopyCardNumber and handleFreezeCard as they are now internal to CardRequest or its children
+  // const handleCopyCardNumber = () => { ... };
+  // const handleFreezeCard = () => { ... };
+
 
   if (!user) {
     return <div className="min-h-screen bg-purple-950 text-white flex items-center justify-center text-xl">Loading dashboard...</div>;
@@ -236,6 +242,13 @@ const Dashboard = () => {
             </form>
           </div>
         </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          <div className="lg:col-span-2">
+            <CardRequest />
+          </div>
+        </div>
+
         <TransactionHistory />
       </main>
     </div>

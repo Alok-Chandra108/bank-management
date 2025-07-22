@@ -101,6 +101,14 @@ On the **Transaction History** page, users can:
 
 ---
 
+## 💳 Virtual Credit Card Feature:
+- Users can apply for a virtual debit card.
+- An issuance process with a real-time countdown timer.
+- Once active, an interactive 3D virtual card is displayed with hover effects, tilt, and a subtle shimmer.
+- Card details (number, holder, expiry, type) are dynamically shown.
+
+---
+
 ## 🛠️ Future Enhancements
 
 - Admin Panel with User Management

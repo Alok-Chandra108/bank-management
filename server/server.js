@@ -5,6 +5,8 @@ import connectDB from './config/db.js';
 import authRoutes from './routes/authRoutes.js';
 import bankRoutes from './routes/bankRoutes.js';
 import transactionRoutes from './routes/transactionRoutes.js';
+import cardRoutes from './routes/cardRoutes.js';
+
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
 
@@ -29,6 +31,8 @@ connectDB();
 app.use('/api/auth', authRoutes);
 app.use('/api/bank', bankRoutes);
 app.use('/api/transactions', transactionRoutes);
+app.use('/api/cards', cardRoutes);
+
 
 // Basic Route for testing deployment (Optional)
 app.get('/', (req, res) => {
